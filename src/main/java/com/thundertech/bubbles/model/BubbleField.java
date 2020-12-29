@@ -8,8 +8,8 @@ public class BubbleField {
     private int height;
 
     public BubbleField() {
-        this.width = 5;
-        this.height = 5;
+        this.width = 10;
+        this.height = 10;
         this.field = new Bubble[this.width][this.height];
     }
 
@@ -39,8 +39,12 @@ public class BubbleField {
         return height;
     }
 
-    public Bubble[][] getField() {
-        return field;
+    public void setBubble(Bubble bubble) {
+        field[bubble.getX()][bubble.getY()] = bubble;
+    }
+
+    public Bubble getBubble(int x, int y) {
+        return field[x][y];
     }
 
     @Override

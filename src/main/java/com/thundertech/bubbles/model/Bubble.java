@@ -3,12 +3,13 @@ package com.thundertech.bubbles.model;
 public class Bubble {
     private int x;
     private int y;
-    private int radius = 5;
+    private int diameter;
     private String color;
 
-    public Bubble(int x, int y, String color) {
+    public Bubble(int x, int y, int diameter, String color) {
         this.x = x;
         this.y = y;
+        this.diameter = diameter;
         this.color = color;
     }
 
@@ -20,8 +21,8 @@ public class Bubble {
         this.y = y;
     }
 
-    public void setRadius(int radius) {
-        this.radius = radius;
+    public void setDiameter(int diameter) {
+        this.diameter = diameter;
     }
 
     public void setColor(String color) {
@@ -36,8 +37,8 @@ public class Bubble {
         return y;
     }
 
-    public int getRadius() {
-        return radius;
+    public int getDiameter() {
+        return diameter;
     }
 
     public String getColor() {

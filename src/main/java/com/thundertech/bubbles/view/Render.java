@@ -1,9 +1,7 @@
 package com.thundertech.bubbles.view;
 
 import com.thundertech.bubbles.model.Bubble;
-import com.thundertech.bubbles.model.BubbleField;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 
 public class Render {
     private final GraphicsContext graphics;
@@ -12,19 +10,23 @@ public class Render {
         this.graphics = graphics;
     }
 
-    public void paint(BubbleField field) {
-        for(int x = 0; x < field.getWidth(); x++) {
-            for(int y = 0; y < field.getHeight(); y++) {
-                Bubble bubble = field.getBubble(x,y);
-                paint(bubble);
-            }
-        }
+    public void render(Renderable renderable) {
+        renderable.render(this.graphics);
     }
 
-    public void paint(Bubble bubble) {
-        Image image = new Image("/bubbles/" + bubble.getColor().toLowerCase().trim() + ".png");
-        int width = bubble.getDiameter();
-        int height = bubble.getDiameter();
-        graphics.drawImage(image, bubble.getX() * width, bubble.getY() * height, width, height);
+    public void clear(Bubble bubble) {
+        double x = bubble.getBoundary().getMinX();
+        double y = bubble.getBoundary().getMinY();
+
+        int diameter = bubble.getDiameter();
+        graphics.clearRect(x,y,diameter,diameter);
+    }
+
+    public void pick(Bubble bubble) {
+        double x = bubble.getBoundary().getMinX();
+        double y = bubble.getBoundary().getMinY();
+        int diameter = bubble.getDiameter();
+
+        graphics.strokeRect(x, y, diameter, diameter);
     }
 }

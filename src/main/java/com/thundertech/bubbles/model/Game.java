@@ -4,11 +4,12 @@ import java.util.Random;
 
 public class Game {
     private int bubbleDiameter = 40;
+    private BubbleField bubbleField;
 
     public BubbleField createBubbleField(int width, int height) {
-        BubbleField field = new BubbleField(width, height);
-        loadBubbleField(field);
-        return field;
+        bubbleField = new BubbleField(width, height);
+        loadBubbleField(bubbleField);
+        return bubbleField;
     }
 
     private void loadBubbleField(BubbleField field) {
@@ -34,5 +35,9 @@ public class Game {
 
     public int getBubbleDiameter() {
         return bubbleDiameter;
+    }
+
+    public BubbleField getBubbleField() {
+        return bubbleField;
     }
 }

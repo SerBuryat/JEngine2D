@@ -20,6 +20,9 @@ public class Controller {
         int width = window.getWidth() / (game.getBubbleDiameter());
         int height = window.getHeight() / (game.getBubbleDiameter());
         BubbleField field = game.createBubbleField(width, height);
-        render.paint(field);
+
+        RenderableMouseEvent.ADD_RENDERABLE(field);
+
+        render.render(field);
     }
 }

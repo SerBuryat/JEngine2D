@@ -1,5 +1,6 @@
 package com.thundertech.bubbles.view;
 
+import com.thundertech.bubbles.controller.RenderableMouseEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -14,6 +15,7 @@ public class Window  {
         this.width = width;
         this.height = height;
         this.canvas = new Canvas(width, height);
+        this.canvas.setOnMousePressed(new RenderableMouseEvent());
         this.pane = new BorderPane(this.canvas);
     }
 

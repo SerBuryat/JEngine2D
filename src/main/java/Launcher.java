@@ -11,7 +11,7 @@ public class Launcher extends Application {
 
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         Game game = new Game();
         Window window = new Window(800, 600);
         Render render = new Render(window.getCanvas().getGraphicsContext2D());

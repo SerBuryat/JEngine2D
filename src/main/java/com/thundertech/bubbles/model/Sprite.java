@@ -1,5 +1,6 @@
 package com.thundertech.bubbles.model;
 
+import com.thundertech.bubbles.controller.RenderableMouseEvent;
 import com.thundertech.bubbles.view.Renderable;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
@@ -22,24 +23,19 @@ public class Sprite implements Renderable, EventHandler<MouseEvent> {
         this.width = width;
         this.height = height;
         this.image = image;
-        boundary = new Rectangle2D(x * width,y * height,width,height);
-    }
+        this.boundary = new Rectangle2D(x,y ,width,height);
 
-    public void render(GraphicsContext graphics) {
-        graphics.drawImage(this.image,
-                this.boundary.getMinX(),
-                this.boundary.getMinY(),
-                this.width, this.height);
+        RenderableMouseEvent.ADD_RENDERABLE(this);
     }
 
     public void setX(int x) {
         this.x = x;
-        this.boundary = new Rectangle2D(x * width,y * height,width,height);
+        this.boundary = new Rectangle2D(x ,y,width,height);
     }
 
     public void setY(int y) {
         this.y = y;
-        this.boundary = new Rectangle2D(x * width,y * height,width,height);
+        this.boundary = new Rectangle2D(x,y ,width,height);
     }
 
     public void setWidth(int width) {
@@ -88,12 +84,21 @@ public class Sprite implements Renderable, EventHandler<MouseEvent> {
                 "x=" + x +
                 ", y=" + y +
                 ", boundary=" + boundary +
+                ", image=" + image.getUrl().split("/")[image.getUrl().split("/").length-1] +
                 '}';
     }
 
     @Override
     public void handle(MouseEvent mouseEvent) {
-        if(this.isContainsPoint(mouseEvent.getX(), mouseEvent.getY()))
+        if(this.isContainsPoint(mouseEvent.getX(), mouseEvent.getY())) {
             System.out.println(this);
+        }
+    }
+
+    public void render(GraphicsContext graphics) {
+        graphics.drawImage(this.image,
+                this.boundary.getMinX(),
+                this.boundary.getMinY(),
+                this.width, this.height);
     }
 }

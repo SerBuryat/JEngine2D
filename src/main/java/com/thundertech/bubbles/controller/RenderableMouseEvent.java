@@ -23,4 +23,8 @@ public class RenderableMouseEvent implements EventHandler<MouseEvent> {
     public static void ADD_RENDERABLE(List<Renderable> renderables) {
         RENDERABLES.addAll(renderables);
     }
+
+    public static List<Renderable> GET_RENDERABLES() {
+        return RENDERABLES;
+    }
 }

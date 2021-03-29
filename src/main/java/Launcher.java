@@ -1,5 +1,4 @@
 import com.thundertech.bubbles.controller.Controller;
-import com.thundertech.bubbles.model.Game;
 import com.thundertech.bubbles.view.Render;
 import com.thundertech.bubbles.view.Window;
 import javafx.application.Application;
@@ -12,10 +11,9 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage stage) {
-        Game game = new Game();
         Window window = new Window(800, 600);
         Render render = new Render(window.getCanvas().getGraphicsContext2D());
-        Controller controller = new Controller(game, window, render);
+        Controller controller = new Controller(window, render);
 
         loadScene(stage, window.getPane());
 
@@ -29,7 +27,7 @@ public class Launcher extends Application {
     private void loadScene(Stage stage, Pane pane) {
         Scene scene = new Scene(pane);
         stage.setScene(scene);
-        stage.setTitle("[Bubbles]");
+        stage.setTitle("[JEngine2D]");
         stage.setResizable(false);
         stage.show();
     }

@@ -7,46 +7,47 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 
-public class Bubble implements Renderable, EventHandler<MouseEvent> {
+public class Sprite implements Renderable, EventHandler<MouseEvent> {
+
     private int x;
     private int y;
     private Rectangle2D boundary;
-    private int diameter;
-    private String color;
+    private int width;
+    private int height;
     private Image image;
 
-    public Bubble(int x, int y, int diameter, String color) {
+    public Sprite(int x, int y, int width, int height, Image image) {
         this.x = x;
         this.y = y;
-        this.diameter = diameter;
-        this.color = color;
-        image = new Image("/bubbles/" + color.toLowerCase().trim() + ".png");
-        boundary = new Rectangle2D(x * diameter,y * diameter,diameter,diameter);
+        this.width = width;
+        this.height = height;
+        this.image = image;
+        boundary = new Rectangle2D(x * width,y * height,width,height);
     }
 
     public void render(GraphicsContext graphics) {
         graphics.drawImage(this.image,
                 this.boundary.getMinX(),
                 this.boundary.getMinY(),
-                this.diameter, this.diameter);
+                this.width, this.height);
     }
 
     public void setX(int x) {
         this.x = x;
-        boundary = new Rectangle2D(x * diameter,y * diameter,diameter,diameter);
+        this.boundary = new Rectangle2D(x * width,y * height,width,height);
     }
 
     public void setY(int y) {
         this.y = y;
-        boundary = new Rectangle2D(x * diameter,y * diameter,diameter,diameter);
+        this.boundary = new Rectangle2D(x * width,y * height,width,height);
     }
 
-    public void setDiameter(int diameter) {
-        this.diameter = diameter;
+    public void setWidth(int width) {
+        this.width = width;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     public void setImage(Image image) {
@@ -65,12 +66,12 @@ public class Bubble implements Renderable, EventHandler<MouseEvent> {
         return boundary;
     }
 
-    public int getDiameter() {
-        return diameter;
+    public int getWidth() {
+        return width;
     }
 
-    public String getColor() {
-        return color;
+    public int getHeight() {
+        return height;
     }
 
     public Image getImage() {
@@ -83,11 +84,10 @@ public class Bubble implements Renderable, EventHandler<MouseEvent> {
 
     @Override
     public String toString() {
-        return "Bubble{" +
+        return "Sprite{" +
                 "x=" + x +
                 ", y=" + y +
                 ", boundary=" + boundary +
-                ", color='" + color + '\'' +
                 '}';
     }
 

@@ -1,6 +1,5 @@
-package com.thundertech.bubbles.controller;
+package com.thundertech.jengine2d.view.render;
 
-import com.thundertech.bubbles.view.Renderable;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 

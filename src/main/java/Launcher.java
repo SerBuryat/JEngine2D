@@ -1,6 +1,6 @@
-import com.thundertech.bubbles.controller.Controller;
-import com.thundertech.bubbles.view.Render;
-import com.thundertech.bubbles.view.Window;
+import com.thundertech.jengine2d.controller.Controller;
+import com.thundertech.jengine2d.view.render.Render;
+import com.thundertech.jengine2d.view.Window;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;

@@ -1,18 +1,18 @@
-package com.thundertech.bubbles.controller;
+package com.thundertech.jengine2d.controller;
 
-import com.thundertech.bubbles.model.Sprite;
-import com.thundertech.bubbles.view.Render;
-import com.thundertech.bubbles.view.Renderable;
-import com.thundertech.bubbles.view.Window;
+import com.thundertech.jengine2d.view.render.*;
+import com.thundertech.jengine2d.model.Sprite;
+import com.thundertech.jengine2d.view.Window;
 import javafx.scene.image.Image;
 
-public class Controller {
+public class Controller implements RenderableEventsListener {
     private final Window window;
     private final Render render;
 
     public Controller(Window window, Render render) {
         this.window = window;
         this.render = render;
+        RenderableEventManager.addEventListener(this);
     }
 
     public void start() {
@@ -27,12 +27,15 @@ public class Controller {
 
         Sprite yellowBubble = new Sprite(200,100,50,50,
                 new Image("/bubbles/yellow.png"));
-
-        this.renderScene();
     }
 
     public void renderScene() {
         this.render.clear();
         render.render(RenderableMouseEvent.GET_RENDERABLES());
+    }
+
+    @Override
+    public void renderableObjectChanged(Renderable renderable) {
+        renderScene();
     }
 }

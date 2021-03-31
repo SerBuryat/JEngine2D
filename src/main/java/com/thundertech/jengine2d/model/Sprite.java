@@ -4,12 +4,16 @@ import com.thundertech.jengine2d.view.render.RenderableEventManager;
 import com.thundertech.jengine2d.view.render.RenderableMouseEvent;
 import com.thundertech.jengine2d.view.render.Renderable;
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Sprite implements Renderable, EventHandler<MouseEvent> {
 
@@ -20,6 +24,7 @@ public class Sprite implements Renderable, EventHandler<MouseEvent> {
     private int height;
     private Image image;
     private boolean picked = false;
+    private final SpriteMovementTrack movementTrack = new SpriteMovementTrack();
 
     public Sprite(int x, int y, int width, int height, Image image) {
         this.x = x;
@@ -39,17 +44,8 @@ public class Sprite implements Renderable, EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent mouseEvent) {
         if(this.isContainsPoint(mouseEvent.getX(), mouseEvent.getY())) {
-            if(mouseEvent.getButton() == MouseButton.PRIMARY) {
-                if(mouseEvent.getClickCount() == 2) {
-                    if(!picked)
-                        this.setPicked(true);
-                    else this.setPicked(false);
-                }
-                if(this.isPicked()) {
-                    this.setX((int) mouseEvent.getX());
-                    this.setY((int) mouseEvent.getY());
-                }
-            }
+            SpriteMouseActions.pick(this, mouseEvent);
+            SpriteMouseActions.move(this, mouseEvent);
         }
     }
 
@@ -94,6 +90,10 @@ public class Sprite implements Renderable, EventHandler<MouseEvent> {
     public void setImage(Image image) {
         this.image = image;
         RenderableEventManager.notifyRenderableListeners(this);
+    }
+
+    public SpriteMovementTrack getMovementTrack() {
+        return movementTrack;
     }
 
     public boolean isPicked() {

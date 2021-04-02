@@ -1,19 +1,20 @@
-package com.thundertech.jengine2d.model;
+package com.thundertech.jengine2d.model.sprite;
 
+import com.thundertech.jengine2d.controller.SpriteController;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
 public class SpriteMouseActions {
-    public static void pick(Sprite sprite, MouseEvent mouseEvent) {
+    public static void pick(SpriteController spriteController, MouseEvent mouseEvent) {
         if(mouseEvent.getButton() == MouseButton.PRIMARY) {
             if(mouseEvent.getClickCount() == 2) {
-                sprite.setPicked(!sprite.isPicked());
+                spriteController.setPicked(!spriteController.isPicked());
             }
         }
     }
 
-    public static void move(Sprite sprite, MouseEvent mouseEvent) {
+    public static void move(SpriteController sprite, MouseEvent mouseEvent) {
         if(mouseEvent.getButton() == MouseButton.PRIMARY &&
                 sprite.isPicked() && mouseEvent.getEventType() == MouseEvent.MOUSE_DRAGGED) {
 
@@ -21,10 +22,11 @@ public class SpriteMouseActions {
             SpriteMovementTrack movementTrack = sprite.getMovementTrack();
             movementTrack.addMovePoint(currentPoint);
 
-            if(movementTrack.getTrackSize()-2 >= 0) {
+            if(movementTrack.getTrackSize() > 1) {
                 Point2D previousPoint = movementTrack.getMovePoint(movementTrack.getTrackSize()-2);
-                sprite.setX((int)(sprite.getX() + (currentPoint.getX() - previousPoint.getX())));
-                sprite.setY((int)(sprite.getY() + (currentPoint.getY() - previousPoint.getY())));
+                int newX = ((int)(sprite.getX() + (currentPoint.getX() - previousPoint.getX())));
+                int newY = ((int)(sprite.getY() + (currentPoint.getY() - previousPoint.getY())));
+                sprite.move(newX, newY);
             }
         }
     }

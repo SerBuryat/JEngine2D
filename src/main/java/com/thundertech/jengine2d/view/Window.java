@@ -1,5 +1,6 @@
 package com.thundertech.jengine2d.view;
 
+import com.thundertech.jengine2d.controller.JEngineController;
 import com.thundertech.jengine2d.view.render.RenderableMouseEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.BorderPane;
@@ -15,8 +16,8 @@ public class Window  {
         this.width = width;
         this.height = height;
         this.canvas = new Canvas(width, height);
-        this.canvas.setOnMousePressed(new RenderableMouseEvent());
-        this.canvas.setOnMouseDragged(new RenderableMouseEvent());
+        this.canvas.setOnMousePressed(JEngineController.renderableMouseEvent);
+        this.canvas.setOnMouseDragged(JEngineController.renderableMouseEvent);
         this.pane = new BorderPane(this.canvas);
     }
 

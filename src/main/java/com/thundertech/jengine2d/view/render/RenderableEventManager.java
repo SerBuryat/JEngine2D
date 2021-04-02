@@ -5,13 +5,15 @@ import java.util.List;
 
 public class RenderableEventManager {
 
-    private static final List<RenderableEventsListener> LISTENER = new ArrayList<>();
+    public RenderableEventManager() {}
 
-    public static void notifyRenderableListeners(Renderable renderable) {
-        LISTENER.forEach(listener -> listener.renderableObjectChanged(renderable));
+    private final List<RenderableEventsListener> listeners = new ArrayList<>();
+
+    public void notifyRenderableListeners(Renderable renderable) {
+        this.listeners.forEach(listener -> listener.renderableObjectChanged(renderable));
     }
 
-    public static void addEventListener(RenderableEventsListener listener) {
-        LISTENER.add(listener);
+    public void addEventListener(RenderableEventsListener listener) {
+        this.listeners.add(listener);
     }
 }

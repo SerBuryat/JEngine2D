@@ -1,4 +1,4 @@
-import com.thundertech.jengine2d.controller.Controller;
+import com.thundertech.jengine2d.controller.JEngineController;
 import com.thundertech.jengine2d.view.render.Render;
 import com.thundertech.jengine2d.view.Window;
 import javafx.application.Application;
@@ -13,11 +13,11 @@ public class Launcher extends Application {
     public void start(Stage stage) {
         Window window = new Window(800, 600);
         Render render = new Render(window.getCanvas().getGraphicsContext2D());
-        Controller controller = new Controller(window, render);
+        JEngineController JEngineController = new JEngineController(window, render);
 
         loadScene(stage, window.getPane());
 
-        controller.start();
+        JEngineController.start();
     }
 
     public static void main(String[] args) {

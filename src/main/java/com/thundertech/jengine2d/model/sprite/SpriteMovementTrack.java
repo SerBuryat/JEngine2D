@@ -1,4 +1,4 @@
-package com.thundertech.jengine2d.model;
+package com.thundertech.jengine2d.model.sprite;
 
 import javafx.geometry.Point2D;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpriteMovementTrack {
-    private List<Point2D> movementTrack = new ArrayList<>();
+    private final List<Point2D> movementTrack = new ArrayList<>();
     private final int movementTrackCapacity = 20;
 
     public void addMovePoint(Point2D point2D) {

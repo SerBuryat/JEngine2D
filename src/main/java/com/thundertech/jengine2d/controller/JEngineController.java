@@ -1,24 +1,20 @@
 package com.thundertech.jengine2d.controller;
 
 import com.thundertech.jengine2d.view.render.*;
-import com.thundertech.jengine2d.model.sprite.Sprite;
-import com.thundertech.jengine2d.view.Window;
 import javafx.scene.image.Image;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class JEngineController implements RenderableEventsListener {
-    private final Window window;
     private final Render render;
-    public final static RenderableEventManager renderableEventManager = new RenderableEventManager();
-    public final static RenderableMouseEvent renderableMouseEvent = new RenderableMouseEvent();
-    public static final List<SpriteController> sprites = new ArrayList<>();
+    public RenderableEventManager renderableEventManager;
+    public RenderableMouseEvent renderableMouseEvent;
 
-    public JEngineController(Window window, Render render) {
-        this.window = window;
+    public JEngineController(Render render,
+                             RenderableEventManager renderableEventManager,
+                             RenderableMouseEvent renderableMouseEvent) {
         this.render = render;
-        renderableEventManager.addEventListener(this);
+        this.renderableEventManager = renderableEventManager;
+        this.renderableMouseEvent = renderableMouseEvent;
+        this.renderableEventManager.addEventListener(this);
     }
 
     public void start() {
@@ -36,9 +32,7 @@ public class JEngineController implements RenderableEventsListener {
     }
 
     public SpriteController createSprite(int x, int y, int width, int height, Image image) {
-        SpriteController spriteController = new SpriteController(x, y, width, height, image);
-        sprites.add(spriteController);
-        return spriteController;
+        return new SpriteController(x, y, width, height, image,renderableEventManager,renderableMouseEvent);
     }
 
     public void renderScene() {
@@ -50,6 +44,4 @@ public class JEngineController implements RenderableEventsListener {
     public void renderableObjectChanged(Renderable renderable) {
         renderScene();
     }
-
-
 }

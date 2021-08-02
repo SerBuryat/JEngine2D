@@ -1,23 +1,31 @@
+package com.thundertech.jengine2d;
+
 import com.thundertech.jengine2d.controller.JEngineController;
-import com.thundertech.jengine2d.view.render.Render;
 import com.thundertech.jengine2d.view.Window;
+import com.thundertech.jengine2d.view.render.Render;
+import com.thundertech.jengine2d.view.render.RenderableEventManager;
+import com.thundertech.jengine2d.view.render.RenderableMouseEvent;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class Launcher extends Application {
 
+public class JEngine2DApp extends Application {
 
     @Override
     public void start(Stage stage) {
-        Window window = new Window(800, 600);
+        RenderableEventManager renderableEventManager = new RenderableEventManager();
+        RenderableMouseEvent renderableMouseEvent = new RenderableMouseEvent();
+
+        Window window = new Window(800,600,renderableMouseEvent);
         Render render = new Render(window.getCanvas().getGraphicsContext2D());
-        JEngineController JEngineController = new JEngineController(window, render);
+        JEngineController jEngineController =
+                new JEngineController(render, renderableEventManager, renderableMouseEvent);
 
         loadScene(stage, window.getPane());
 
-        JEngineController.start();
+        jEngineController.start();
     }
 
     public static void main(String[] args) {
@@ -31,4 +39,5 @@ public class Launcher extends Application {
         stage.setResizable(false);
         stage.show();
     }
+
 }

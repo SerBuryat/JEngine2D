@@ -3,7 +3,7 @@ package com.thundertech.jengine2d.controller;
 import com.thundertech.jengine2d.model.sprite.Sprite;
 import com.thundertech.jengine2d.model.sprite.SpriteMouseAction;
 import com.thundertech.jengine2d.view.render.Renderable;
-import com.thundertech.jengine2d.view.render.RenderableEventManager;
+import com.thundertech.jengine2d.view.render.RenderableActionObserver;
 import com.thundertech.jengine2d.view.render.RenderableMouseEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
@@ -16,19 +16,19 @@ public class SpriteController implements Renderable, EventHandler<MouseEvent>, S
     private final Sprite sprite;
     private Rectangle2D boundary;
     private boolean picked;
-    private final RenderableEventManager renderableEventManager;
+    private final RenderableActionObserver renderableActionObserver;
     private final RenderableMouseEvent renderableMouseEvent;
 
     public SpriteController( int x, int y, int width, int height, Image image,
-                             RenderableEventManager renderableEventManager,
+                             RenderableActionObserver renderableActionObserver,
                              RenderableMouseEvent renderableMouseEvent) {
         this.sprite = new Sprite(x,y,width,height,image);
         this.boundary = new Rectangle2D(this.sprite.getX(),this.sprite.getY(),
                                         this.sprite.getWidth(),this.sprite.getHeight());
-        this.renderableEventManager = renderableEventManager;
+        this.renderableActionObserver = renderableActionObserver;
         this.renderableMouseEvent = renderableMouseEvent;
         this.renderableMouseEvent.addRenderable(this);
-        this.renderableEventManager.notifyRenderableListeners(this);
+        this.renderableActionObserver.notifyListeners(this);
     }
 
     public void moveSprite(int x, int y) {
@@ -36,7 +36,7 @@ public class SpriteController implements Renderable, EventHandler<MouseEvent>, S
         this.sprite.setY(y);
         this.boundary = new Rectangle2D(this.sprite.getX(), this.sprite.getY(),
                 this.sprite.getWidth(), this.sprite.getHeight());
-        renderableEventManager.notifyRenderableListeners(this);
+        renderableActionObserver.notifyListeners(this);
     }
 
     public void render(GraphicsContext graphics) {
@@ -83,7 +83,7 @@ public class SpriteController implements Renderable, EventHandler<MouseEvent>, S
 
     public void setPicked(boolean picked) {
         this.picked = picked;
-        renderableEventManager.notifyRenderableListeners(this);
+        renderableActionObserver.notifyListeners(this);
     }
 
     public void setSize(int width, int height) {
@@ -91,12 +91,12 @@ public class SpriteController implements Renderable, EventHandler<MouseEvent>, S
         this.sprite.setHeight(height);
         this.boundary = new Rectangle2D(this.sprite.getX(), this.sprite.getY(),
                 this.sprite.getWidth(), this.sprite.getHeight());
-        renderableEventManager.notifyRenderableListeners(this);
+        renderableActionObserver.notifyListeners(this);
     }
 
     public void setImage(Image image) {
         this.sprite.setImage(image);
-        renderableEventManager.notifyRenderableListeners(this);
+        renderableActionObserver.notifyListeners(this);
     }
 
     public boolean isPicked() {
@@ -113,5 +113,13 @@ public class SpriteController implements Renderable, EventHandler<MouseEvent>, S
 
     public int getY() {
         return this.sprite.getY();
+    }
+
+    @Override
+    public String toString() {
+        return "SpriteController{" +
+                "sprite=" + sprite +
+                ", boundary=" + boundary +
+                '}';
     }
 }

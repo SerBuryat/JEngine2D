@@ -4,43 +4,35 @@ import com.thundertech.jengine2d.view.render.RenderableMouseEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
+@Component
+@Getter
 public class Window  {
     private final Pane pane;
     private final Canvas canvas;
-    private int width;
-    private int height;
+    @Setter
+    private int width = 800;
+    @Setter
+    private int height = 600;
 
-    public Window(int width, int height, RenderableMouseEvent renderableMouseEvent) {
-        this.width = width;
-        this.height = height;
-        this.canvas = new Canvas(width, height);
+    private final RenderableMouseEvent renderableMouseEvent;
+
+    @PostConstruct
+    public void init() {
         this.canvas.setOnMousePressed(renderableMouseEvent);
         this.canvas.setOnMouseDragged(renderableMouseEvent);
+    }
+
+    @Autowired
+    public Window(RenderableMouseEvent renderableMouseEvent) {
+        this.canvas = new Canvas(width, height);
         this.pane = new BorderPane(this.canvas);
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public Pane getPane() {
-        return pane;
-    }
-
-    public Canvas getCanvas() {
-        return canvas;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
+        this.renderableMouseEvent = renderableMouseEvent;
     }
 }

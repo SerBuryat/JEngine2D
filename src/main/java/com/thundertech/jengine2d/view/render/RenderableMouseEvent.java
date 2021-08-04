@@ -2,10 +2,12 @@ package com.thundertech.jengine2d.view.render;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class RenderableMouseEvent implements EventHandler<MouseEvent> {
     private final List<Renderable> renderables = new ArrayList<>();
 
@@ -16,10 +18,6 @@ public class RenderableMouseEvent implements EventHandler<MouseEvent> {
 
     public void addRenderable(Renderable renderable) {
         this.renderables.add(renderable);
-    }
-
-    public void addRenderable(List<Renderable> renderables) {
-        this.renderables.addAll(renderables);
     }
 
     public List<Renderable> getRenderables() {

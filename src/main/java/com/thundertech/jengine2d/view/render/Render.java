@@ -1,12 +1,16 @@
 package com.thundertech.jengine2d.view.render;
 
 import javafx.scene.canvas.GraphicsContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class Render {
     private final GraphicsContext graphics;
 
+    @Autowired
     public Render(GraphicsContext graphics) {
         this.graphics = graphics;
     }

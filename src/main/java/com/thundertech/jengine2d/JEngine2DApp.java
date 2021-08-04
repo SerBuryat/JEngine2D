@@ -1,27 +1,23 @@
 package com.thundertech.jengine2d;
 
+import com.thundertech.jengine2d.config.SpringConfig;
 import com.thundertech.jengine2d.controller.JEngineController;
 import com.thundertech.jengine2d.view.Window;
-import com.thundertech.jengine2d.view.render.Render;
-import com.thundertech.jengine2d.view.render.RenderableEventManager;
-import com.thundertech.jengine2d.view.render.RenderableMouseEvent;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class JEngine2DApp extends Application {
 
     @Override
     public void start(Stage stage) {
-        RenderableEventManager renderableEventManager = new RenderableEventManager();
-        RenderableMouseEvent renderableMouseEvent = new RenderableMouseEvent();
+        ApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
 
-        Window window = new Window(800,600,renderableMouseEvent);
-        Render render = new Render(window.getCanvas().getGraphicsContext2D());
-        JEngineController jEngineController =
-                new JEngineController(render, renderableEventManager, renderableMouseEvent);
+        Window window = context.getBean(Window.class);
+        JEngineController jEngineController = context.getBean(JEngineController.class);
 
         loadScene(stage, window.getPane());
 

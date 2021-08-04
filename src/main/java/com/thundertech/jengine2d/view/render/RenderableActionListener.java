@@ -1,5 +1,5 @@
 package com.thundertech.jengine2d.view.render;
 
-public interface RenderableEventsListener {
+public interface RenderableActionListener {
     void renderableObjectChanged(Renderable renderable);
 }

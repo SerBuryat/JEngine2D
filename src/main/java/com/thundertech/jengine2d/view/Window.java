@@ -1,9 +1,11 @@
 package com.thundertech.jengine2d.view;
 
 import com.thundertech.jengine2d.view.render.RenderableMouseEvent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +36,13 @@ public class Window  {
         this.canvas = new Canvas(width, height);
         this.pane = new BorderPane(this.canvas);
         this.renderableMouseEvent = renderableMouseEvent;
+    }
+
+    public void loadAndShow(Stage stage) {
+        Scene scene = new Scene(pane);
+        stage.setScene(scene);
+        stage.setTitle("[JEngine2D]");
+        stage.setResizable(false);
+        stage.show();
     }
 }

@@ -1,39 +1,29 @@
 package com.thundertech.jengine2d;
 
-import com.thundertech.jengine2d.config.SpringConfig;
 import com.thundertech.jengine2d.controller.JEngineController;
 import com.thundertech.jengine2d.view.Window;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Lazy;
 
-public class JEngine2DApp extends Application {
+@Lazy
+@SpringBootApplication
+public class JEngine2DApp extends AbstractJEngine2DApp {
+
+    @Autowired
+    private JEngineController jEngineController;
+    @Autowired
+    private Window window;
 
     @Override
     public void start(Stage stage) {
-        ApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
-
-        Window window = context.getBean(Window.class);
-        JEngineController jEngineController = context.getBean(JEngineController.class);
-
-        loadScene(stage, window.getPane());
-
+        window.loadAndShow(stage);
         jEngineController.start();
     }
 
     public static void main(String[] args) {
-        launch(args);
-    }
-
-    private void loadScene(Stage stage, Pane pane) {
-        Scene scene = new Scene(pane);
-        stage.setScene(scene);
-        stage.setTitle("[JEngine2D]");
-        stage.setResizable(false);
-        stage.show();
+        launchApp(args);
     }
 
 }
